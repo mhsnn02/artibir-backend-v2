@@ -10,7 +10,7 @@ services:
           name: artibir-db
           property: connectionString
       - key: PYTHON_VERSION
-        value: 3.14.2
+        value: 3.11.6
 
 databases:
   - name: artibir-db
