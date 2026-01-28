@@ -11,12 +11,15 @@ print(f"Connecting to database...")
 
 def reset_database():
     try:
-        # 1. Drop all tables
-        print("Dropping all tables...")
-        Base.metadata.drop_all(bind=engine)
-        print("All tables dropped.")
+        # 0. Force clean schema (Crucial for PostgreSQL transaction errors)
+        print("Cleaning public schema...")
+        with engine.connect() as conn:
+            conn.execute(sa.text("DROP SCHEMA public CASCADE;"))
+            conn.execute(sa.text("CREATE SCHEMA public;"))
+            conn.commit()
+        print("Public schema cleaned and recreated.")
 
-        # 2. Create all tables
+        # 1. Create all tables
         print("Creating all tables from scratch...")
         Base.metadata.create_all(bind=engine)
         print("All tables created successfully.")
