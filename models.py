@@ -96,7 +96,7 @@ class User(Base):
 class Event(Base):
     __tablename__ = "events"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     host_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     
     title = Column(String, index=True)
