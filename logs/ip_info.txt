@@ -1,0 +1,34 @@
+
+Windows IP Configuration
+
+
+Ethernet adapter superbox:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Yerel Aß Baßlantçsç* 9:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Yerel Aß Baßlantçsç* 10:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 
+
+Wireless LAN adapter Wi-Fi:
+
+   Connection-specific DNS Suffix  . : 
+   IPv6 Address. . . . . . . . . . . : 2a02:4e0:2d98:8ef3:cf4d:b01d:d0:19a5
+   Temporary IPv6 Address. . . . . . : 2a02:4e0:2d98:8ef3:212d:9c9a:88db:cba2
+   Link-local IPv6 Address . . . . . : fe80::e480:5bdc:741f:8c80%13
+   IPv4 Address. . . . . . . . . . . : 192.168.1.7
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : fe80::5e7d:aeff:fe68:3a39%13
+                                       192.168.1.1
+
+Ethernet adapter Bluetooth Aß Baßlantçsç:
+
+   Media State . . . . . . . . . . . : Media disconnected
+   Connection-specific DNS Suffix  . : 

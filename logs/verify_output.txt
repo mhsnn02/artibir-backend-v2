@@ -1,0 +1,10 @@
+
+--- Testing Auto Fetch ---
+Failed: 500
+Details: {"message":"Sunucu hatasý oluþtu","detail":"(sqlite3.OperationalError) table events has no column named category\n[SQL: INSERT INTO events (title, description, date, location, city, campus, category, image_url, external_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)]\n[parameters: ('Gençlik Festivali - Ýstanbul', 'Bu harika festival etkinliðini kaçýrmayýn! Harbiye Açýk Hava mekanýnda sizlerle.', '2026-02-05 11:08:53.509898', 'Harbiye Açýk Hava', 'Ýstanbul', None, 'Festival', 'https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?q=80&w=1000&auto=format&fit=crop', 'https://biletix.com/mock-link')]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"}
+
+--- Testing Get All Events ---
+Failed: 500
+
+--- Testing Filter by Futbol ---
+Failed: 500

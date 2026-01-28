@@ -1,0 +1,15 @@
+
+--- Testing Auto Fetch ---
+Success! 5 events created.
+- [Stand-up] Açýk Mikrofon - Ýstanbul (Ýstanbul)
+- [Futbol] Milli Maç - Eskiþehir (Eskiþehir)
+- [Festival] Gençlik Festivali - Ýzmir (Ýzmir)
+- [Festival] Gençlik Festivali - Ýstanbul (Ýstanbul)
+- [Tiyatro] Bir Delinin Hatýra Defteri - Ýzmir (Ýzmir)
+
+--- Testing Get All Events ---
+Total events in DB: 5
+
+--- Testing Filter by Futbol ---
+Found 1 events for Futbol:
+- Milli Maç - Eskiþehir
