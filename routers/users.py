@@ -42,30 +42,24 @@ def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = db.query(models.User).offset(skip).limit(limit).all()
     return users
 
-# --- 4. PROFİL RESMİ YÜKLE (POST /upload-profile) ---
-@router.post("/upload-profile/{user_id}")
+@router.post("/users/upload-profile/{user_id}")
 async def upload_profile_image(user_id: UUID, file: UploadFile = File(...), db: Session = Depends(get_db)):
     """
     Profil Resmi Yükleme
     """
-    # Klasör yoksa oluştur
     if not os.path.exists(UPLOAD_DIR):
         os.makedirs(UPLOAD_DIR)
         
-    # Dosyayı kaydet - UUID string olarak kullanılmalı
     file_location = f"{UPLOAD_DIR}/{str(user_id)}_{file.filename}"
     with open(file_location, "wb+") as file_object:
         shutil.copyfileobj(file.file, file_object)
     
-    # Veritabanını güncelle
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if user:
-        # Resmin tam adresi
-        # Not: Production ortamında burası domain olmalı
-        full_url = f"http://127.0.0.1:8000/{file_location}"
-        user.profile_image = full_url
+        # Production için relative path dönüyoruz, frontend baseUrl ekler.
+        user.profile_image = f"/{file_location}"
         db.commit()
-        return {"status": "success", "image_url": full_url}
+        return {"status": "success", "image_url": user.profile_image}
     
     return {"status": "fail", "message": "Kullanıcı bulunamadı"}
 
@@ -73,8 +67,7 @@ async def upload_profile_image(user_id: UUID, file: UploadFile = File(...), db: 
 # Güvenli Depolama Alanı (Statik olarak sunulmaz)
 PRIVATE_DIR = "private_storage/id_cards"
 
-# --- 5. KİMLİK DOĞRULAMA (POST /users/verify/id-card) ---
-@router.post("/verify/id-card")
+@router.post("/users/verify/id-card")
 async def upload_id_card(
     file: UploadFile = File(...), 
     db: Session = Depends(database.get_db),
@@ -117,8 +110,7 @@ async def upload_id_card(
     
     return {"status": "success", "message": "Kimlik güvenli kasaya alındı."}
 
-# --- 5.5 GERÇEK KİMLİK DOĞRULAMA (NVİ) ---
-@router.post("/verify/identity")
+@router.post("/users/verify/identity-legacy")
 def verify_identity(
     update_data: schemas.UserProfileUpdate,
     db: Session = Depends(database.get_db),
@@ -174,8 +166,7 @@ def verify_identity(
     else:
         raise HTTPException(status_code=400, detail=f"Kimlik doğrulama başarısız: {message}")
 
-# --- 5.5.1 ÖĞRENCİ BELGESİ DOĞRULAMA (E-DEVLET BARKOD) ---
-@router.post("/verify/student-document")
+@router.post("/users/verify/student-document")
 def verify_student_document(
     request: schemas.StudentVerifyRequest,
     db: Session = Depends(database.get_db),
@@ -320,7 +311,7 @@ def verify_phone(
         raise HTTPException(status_code=400, detail="Hatalı kod!")
 
 # --- 6. DOĞRULAMA DURUMU (GET /users/verify/status) ---
-@router.get("/verify/status")
+@router.get("/users/verify/status")
 def get_verification_status(current_user: models.User = Depends(security.get_current_user)):
     """Kullanıcının mavi tik ve doğrulama durumunu döner."""
     return {
@@ -341,7 +332,7 @@ class IdentityVerificationRequest(BaseModel):
     last_name: str
     birth_year: int
 
-@router.post("/verify/identity")
+@router.post("/users/verify/identity")
 def verify_identity_nvi(
     request: IdentityVerificationRequest,
     db: Session = Depends(database.get_db),

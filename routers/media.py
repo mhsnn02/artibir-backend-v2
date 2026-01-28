@@ -16,10 +16,7 @@ UPLOAD_DIR = "uploads/images"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
 
-# Sunucu adresi (Resim linkini üretmek için)
-# Yerel geliştirme ortamı için localhost kullanıyoruz.
-# Production'da bu çevresel değişkenlerden alınmalı.
-BASE_URL = "http://127.0.0.1:8000/images/"
+# Sunucu adresi production'da değişeceği için relative path kullanıyoruz.
 
 @router.post("/api/upload/image")
 async def upload_image(file: UploadFile = File(...)):
@@ -45,10 +42,9 @@ async def upload_image(file: UploadFile = File(...)):
         with open(file_path, "wb") as f:
             f.write(processed_data["file"].read())
 
-        # 4. Kullanıcıya resmin linkini dön
         return JSONResponse(content={
             "status": "success",
-            "file_url": BASE_URL + processed_data["filename"],
+            "file_url": f"/images/{processed_data['filename']}",
             "original_name": file.filename,
             "width": processed_data["width"],
             "height": processed_data["height"]
