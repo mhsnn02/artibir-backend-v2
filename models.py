@@ -143,7 +143,7 @@ class Event(Base):
 class EventParticipant(Base):
     __tablename__ = "event_participants"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"))
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     status = Column(String(20), default="approved") # approved, banned, waitlist
@@ -159,7 +159,7 @@ class EventParticipant(Base):
 class UserReport(Base):
     __tablename__ = "user_reports"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     reporter_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     reported_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"))
@@ -170,7 +170,7 @@ class UserReport(Base):
 class LiveTracking(Base):
     __tablename__ = "event_live_tracking"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"))
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     latitude = Column(Numeric(10, 8))
@@ -182,7 +182,7 @@ class LiveTracking(Base):
 class VoiceRoom(Base):
     __tablename__ = "voice_rooms"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"), unique=True)
     room_token = Column(String(255))
     is_active = Column(Boolean, default=True)
@@ -191,7 +191,7 @@ class VoiceRoom(Base):
 class IcebreakerQuestion(Base):
     __tablename__ = "icebreaker_questions"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     category = Column(String(50)) # Tanışma, Eğlence, Spor
     question_text = Column(Text)
     is_active = Column(Boolean, default=True)
@@ -199,7 +199,7 @@ class IcebreakerQuestion(Base):
 class ChatLog(Base):
     __tablename__ = "activity_chat_logs"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"))
     question_id = Column(Integer, ForeignKey("icebreaker_questions.id"))
     sent_at = Column(DateTime, default=datetime.datetime.utcnow)
@@ -207,7 +207,7 @@ class ChatLog(Base):
 class Badge(Base):
     __tablename__ = "badges"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     name = Column(String(50))
     icon_url = Column(String(255))
     criteria_type = Column(String(50))
@@ -223,7 +223,7 @@ class UserBadge(Base):
 class Message(Base):
     __tablename__ = "messages"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     sender_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     receiver_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     content = Column(String)
@@ -235,7 +235,7 @@ class Message(Base):
 
 class LoginDevice(Base):
     __tablename__ = "login_devices"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     device_name = Column(String(100))
     last_login = Column(DateTime, default=datetime.datetime.utcnow)
@@ -250,7 +250,7 @@ class EventLike(Base):
 
 class SavedCard(Base):
     __tablename__ = "saved_cards"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     card_holder = Column(String(100))
     last_four = Column(String(4))
@@ -261,7 +261,7 @@ class SavedCard(Base):
 
 class SupportTicket(Base):
     __tablename__ = "support_tickets"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     subject = Column(String(100))
     message = Column(Text)
@@ -270,7 +270,7 @@ class SupportTicket(Base):
 
 class Transaction(Base):
     __tablename__ = "transactions"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     amount = Column(Numeric(10, 2))
     payment_id = Column(String(50), nullable=True)
@@ -284,7 +284,7 @@ class Transaction(Base):
 
 class MarketplaceItem(Base):
     __tablename__ = "marketplace_items"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     owner_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     title = Column(String(100), index=True)
     description = Column(Text)
@@ -298,7 +298,7 @@ class MarketplaceItem(Base):
 
 class UserReview(Base):
     __tablename__ = "user_reviews"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     reviewer_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     reviewed_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"), nullable=True)
@@ -311,7 +311,7 @@ class UserReview(Base):
 
 class CampusVenue(Base):
     __tablename__ = "campus_venues"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     name = Column(String(100), index=True)
     latitude = Column(Numeric(10, 8))
     longitude = Column(Numeric(11, 8))
@@ -323,7 +323,7 @@ class CampusVenue(Base):
 class Notification(Base):
     __tablename__ = "notifications"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
     title = Column(String(100))
     message = Column(Text)
