@@ -40,7 +40,7 @@ class PaymentService:
             'currency': 'TRY',
             'basketId': 'B' + str(uuid4())[:8],
             'paymentGroup': 'PRODUCT',
-            'callbackUrl': "http://localhost:8000/payments/callback", # API Callback URL
+            'callbackUrl': os.getenv("APP_URL", "http://localhost:8000") + "/payments/callback", # Dinamik Callback URL
             'paymentCard': {
                 'cardHolderName': card_info['card_holder_name'],
                 'cardNumber': card_info['card_number'],
