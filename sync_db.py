@@ -73,7 +73,9 @@ def sync_db():
         "wallet_balance": "FLOAT DEFAULT 0.0",
         "trust_score": "INTEGER DEFAULT 50",
         "kvkk_accepted": "BOOLEAN DEFAULT FALSE",
-        "kvkk_accepted_at": "TIMESTAMP"
+        "kvkk_accepted_at": "TIMESTAMP",
+        "artibir_points": "INTEGER DEFAULT 0",
+        "level": "INTEGER DEFAULT 1"
     }
 
     # Transaction başlat
