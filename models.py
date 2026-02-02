@@ -13,15 +13,15 @@ class Gender(enum.Enum):
     K = "K"
 
 class TargetGender(enum.Enum):
-    HERKES = "Herkes"
-    SADECE_KIZLAR = "Sadece Kızlar"
-    SADECE_ERKEKLER = "Sadece Erkekler"
+    HERKES = "HERKES"
+    SADECE_KIZLAR = "SADECE_KIZLAR"
+    SADECE_ERKEKLER = "SADECE_ERKEKLER"
 
 class EventStatus(enum.Enum):
-    AKTIF = "Aktif"
-    DOLDU = "Doldu"
-    IPTAL = "İptal"
-    TAMAMLANDI = "Tamamlandı"
+    AKTIF = "AKTIF"
+    DOLDU = "DOLDU"
+    IPTAL = "IPTAL"
+    TAMAMLANDI = "TAMAMLANDI"
 
 class ParticipantStatus(enum.Enum):
     APPROVED = "approved"
@@ -52,6 +52,16 @@ class User(Base):
     trust_score = Column(Integer, default=100) 
     wallet_balance = Column(Numeric(10, 2), default=0.00)
     department = Column(String, nullable=True)
+    university_id = Column(String, nullable=True, index=True) # Üni ayrımı için
+    artibir_points = Column(Integer, default=0) # Oyunlaştırma puanı
+    level = Column(Integer, default=1) # Kullanıcı seviyesi
+    
+    # EKLEME: Kullanıcının ilgi alanlarına kolayca erişmemizi sağlar (Many-to-Many)
+    interests = relationship("Interest", secondary="user_interests", back_populates="users")
+    
+    # Missing Relationships
+    clubs = relationship("ClubMember", back_populates="user")
+    friendships = relationship("Friendship", primaryjoin="User.id==Friendship.user_id") # Simplified for now
     
     # --- AYARLAR VE AKTİVİTE MERKEZİ ALANLARI ---
     bio = Column(Text, nullable=True)
@@ -88,10 +98,15 @@ class User(Base):
     is_phone_verified = Column(Boolean, default=False)
     email_verification_code = Column(String(6), nullable=True)
     phone_verification_code = Column(String(6), nullable=True)
+    password_reset_code = Column(String(6), nullable=True)
     
     # Student Document Verification
     student_document_barcode = Column(String(50), nullable=True)
     is_student_verified = Column(Boolean, default=False)
+
+    # KVKK & Privacy
+    kvkk_accepted = Column(Boolean, default=False)
+    kvkk_accepted_at = Column(DateTime, default=datetime.datetime.utcnow)
 
 class Event(Base):
     __tablename__ = "events"
@@ -138,7 +153,23 @@ class Event(Base):
     price = Column(Numeric(10, 2), default=0.00) # Ücretli etkinlikler için
     location_name = Column(String(255), nullable=True) # "Mecidiyeköy Starbucks" gibi açık adres
 
+    club_id = Column(Integer, ForeignKey("clubs.id"), nullable=True) # Kulüp etkinliği ise
+
     host = relationship("User", foreign_keys=[host_id])
+    club = relationship("Club", back_populates="events")
+
+# --- MATCHING & INTERESTS (Many-to-Many) ---
+
+class UserInterest(Base):
+    __tablename__ = "user_interests"
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    interest_id = Column(Integer, ForeignKey("interests.id", ondelete="CASCADE"), primary_key=True)
+
+class Interest(Base):
+    __tablename__ = "interests"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(50), unique=True, nullable=False, index=True)
+    users = relationship("User", secondary="user_interests", back_populates="interests")
 
 class EventParticipant(Base):
     __tablename__ = "event_participants"
@@ -165,6 +196,7 @@ class UserReport(Base):
     event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"))
     reason = Column(String(50)) # noshow, harassment, toxic
     details = Column(Text, nullable=True)
+    status = Column(String(20), default="pending") # pending, resolved, dismissed
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
 class LiveTracking(Base):
@@ -332,3 +364,44 @@ class Notification(Base):
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
     user = relationship("User")
+
+class Club(Base):
+    __tablename__ = "clubs"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), index=True, unique=True)
+    description = Column(Text)
+    logo_url = Column(String(255), nullable=True)
+    is_official = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    members = relationship("ClubMember", back_populates="club")
+    events = relationship("Event", back_populates="club")
+
+class ClubMember(Base):
+    __tablename__ = "club_members"
+    club_id = Column(Integer, ForeignKey("clubs.id"), primary_key=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
+    role = Column(String(20), default="member") # admin, moderator, member
+    joined_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+    club = relationship("Club", back_populates="members")
+    user = relationship("User")
+
+class Friendship(Base):
+    __tablename__ = "friendships"
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
+    friend_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), primary_key=True)
+    status = Column(String(20), default="pending") # pending, accepted, blocked
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+class EventMoment(Base):
+    __tablename__ = "event_moments"
+    id = Column(Integer, primary_key=True)
+    event_id = Column(UUID(as_uuid=True), ForeignKey("events.id"))
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    media_url = Column(String(255))
+    caption = Column(String(100), nullable=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    expires_at = Column(DateTime) # created_at + 24 hours
+    view_count = Column(Integer, default=0) # Görüntülenme sayısı
+    location_name = Column(String(100), nullable=True) # Konum etiketi

@@ -18,21 +18,28 @@ SMS_API_URL = os.getenv("SMS_API_URL")
 SMS_API_KEY = os.getenv("SMS_API_KEY")
 SMS_SENDER_TITLE = os.getenv("SMS_SENDER_TITLE", "ARTIBIR")
 
-def send_email(to_email: str, subject: str, body: str) -> bool:
+def send_email(to_email: str, subject: str, body: str, html_body: str = None) -> bool:
     """
-    SMTP protokolü ile e-posta gönderir.
-    Gmail kullanıyorsanız 'App Password' oluşturmalısınız.
+    SMTP protokolü ile e-posta (HTML destekli) gönderir.
     """
     if not SMTP_USER or not SMTP_PASSWORD:
         print("⚠️ SMTP credentials not found. Skipping email sending.")
         return False
 
     try:
-        message = MIMEMultipart()
-        message["From"] = SMTP_USER
+        message = MIMEMultipart("alternative")
+        message["From"] = f"ArtıBir Ekibi <{SMTP_USER}>"
         message["To"] = to_email
         message["Subject"] = subject
-        message.attach(MIMEText(body, "plain"))
+        
+        # Plain text versiyonu
+        part1 = MIMEText(body, "plain")
+        message.attach(part1)
+        
+        # HTML versiyonu (Eğer varsa)
+        if html_body:
+            part2 = MIMEText(html_body, "html")
+            message.attach(part2)
 
         with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
             server.starttls()

@@ -28,21 +28,13 @@ def get_icebreaker_question(
     if not event:
         raise HTTPException(status_code=404, detail="Etkinlik bulunamadı.")
     
-    # Sisteme kayıtlı aktif sorulardan rastgele birini seç
-    questions = db.query(models.IcebreakerQuestion).filter(models.IcebreakerQuestion.is_active == True).all()
-    if not questions:
-        return {"question": "En son hangi konsere gittin?", "category": "Genel"}
-    
-    question = random.choice(questions)
-    
-    # Log kaydı at (Hangi sorunun sorulduğunu takip etmek için)
-    log = models.ChatLog(event_id=event_id, question_id=question.id)
-    db.add(log)
-    db.commit()
+    # Akıllı soru üretimi (AIEngine üzerinden)
+    ai_result = AIEngine.generate_icebreaker(event.title, event.category or "Genel")
     
     return {
-        "question": question.question_text,
-        "category": question.category,
+        "question": ai_result["question"],
+        "category": ai_result["category"],
+        "is_ai_generated": True,
         "sent_at": datetime.utcnow()
     }
 

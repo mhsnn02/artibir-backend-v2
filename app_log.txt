@@ -1,0 +1,10 @@
+INFO:     Started server process [25028]
+INFO:     Waiting for application startup.
+2026-01-31 14:14:15,620 [INFO] ============================================================
+2026-01-31 14:14:15,620 [INFO] \U0001f680 ArtýBir Backend Hazýr!
+2026-01-31 14:14:15,621 [INFO] \U0001f4c4 Swagger UI (Dokümantasyon): http://127.0.0.1:8000/docs
+2026-01-31 14:14:15,621 [INFO] ============================================================
+INFO:     Application startup complete.
+ERROR:    [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8081): [winerror 10048] normal olarak her yuva adresi (iletiþim kuralý/að adresi/baðlantý noktasý) için yalnýzca bir kullanýma izin veriliyor
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.

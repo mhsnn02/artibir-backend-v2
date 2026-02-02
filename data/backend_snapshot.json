@@ -1,0 +1,777 @@
+{
+    "generated_at": "2026-01-31T14:21:01.610128",
+    "project_name": "ArtıBir Backend V2",
+    "structure": {
+        "admin.html": "file",
+        "app_log.txt": "file",
+        "artibir.db": "file",
+        "crud.py": "file",
+        "dashboard.html": "file",
+        "database.py": "file",
+        "main.py": "file",
+        "models.py": "file",
+        "README.md": "file",
+        "requirements.txt": "file",
+        "schemas.py": "file",
+        "security.py": "file",
+        "app": {},
+        "data": {
+            "backend_matrix_report.json": "file",
+            "backend_snapshot.json": "file",
+            "master_backend_snapshot.json": "file",
+            "project_paths.json": "file",
+            "tracking.json": "file",
+            "tr_bad_words.json": "file"
+        },
+        "logs": {
+            "ip_info.txt": "file",
+            "verify_output.txt": "file",
+            "verify_output_2.txt": "file"
+        },
+        "routers": {
+            "activity.py": "file",
+            "auth.py": "file",
+            "chat.py": "file",
+            "clubs.py": "file",
+            "events.py": "file",
+            "gamification.py": "file",
+            "intelligence.py": "file",
+            "interact.py": "file",
+            "live_tracking.py": "file",
+            "location.py": "file",
+            "marketplace.py": "file",
+            "media.py": "file",
+            "notifications.py": "file",
+            "participants.py": "file",
+            "payments.py": "file",
+            "reports.py": "file",
+            "reviews.py": "file",
+            "security_management.py": "file",
+            "settings.py": "file",
+            "social.py": "file",
+            "support.py": "file",
+            "users.py": "file",
+            "venues.py": "file",
+            "wallet.py": "file"
+        },
+        "scripts": {
+            "generate_backend_snapshot.py": "file",
+            "generate_master_snapshot.py": "file",
+            "generate_matrix_report.py": "file",
+            "generate_project_paths.py": "file"
+        },
+        "services": {
+            "ai_engine.py": "file",
+            "encryption.py": "file",
+            "event_provider.py": "file",
+            "image_processor.py": "file",
+            "location_service.py": "file",
+            "maps_service.py": "file",
+            "moderation.py": "file",
+            "notification.py": "file",
+            "payment_service.py": "file",
+            "scraper_service.py": "file"
+        },
+        "tests": {
+            "check_startup.py": "file",
+            "verify_all.py": "file",
+            "verify_artibir_vision.py": "file",
+            "verify_chat.py": "file",
+            "verify_events.py": "file",
+            "verify_location.py": "file",
+            "verify_media.py": "file",
+            "verify_moderation.py": "file",
+            "verify_new_models.py": "file",
+            "verify_phase2.py": "file"
+        },
+        "uploads": {
+            "images": {}
+        },
+        "utils": {
+            "edevlet_verifier.py": "file",
+            "nvi_verifier.py": "file",
+            "tracking.py": "file"
+        }
+    },
+    "api_endpoints": [
+        {
+            "path": "/openapi.json",
+            "name": "openapi",
+            "methods": [
+                "GET",
+                "HEAD"
+            ]
+        },
+        {
+            "path": "/docs",
+            "name": "swagger_ui_html",
+            "methods": [
+                "GET",
+                "HEAD"
+            ]
+        },
+        {
+            "path": "/docs/oauth2-redirect",
+            "name": "swagger_ui_redirect",
+            "methods": [
+                "GET",
+                "HEAD"
+            ]
+        },
+        {
+            "path": "/redoc",
+            "name": "redoc_html",
+            "methods": [
+                "GET",
+                "HEAD"
+            ]
+        },
+        {
+            "path": "/uploads",
+            "name": "uploads",
+            "methods": []
+        },
+        {
+            "path": "/data",
+            "name": "data",
+            "methods": []
+        },
+        {
+            "path": "/images",
+            "name": "images",
+            "methods": []
+        },
+        {
+            "path": "/login",
+            "name": "login",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/forgot-password",
+            "name": "forgot_password",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/reset-password",
+            "name": "reset_password",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/events",
+            "name": "read_events",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/events/auto-fetch",
+            "name": "auto_fetch_events",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/events/fetch-external",
+            "name": "fetch_external_events",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/events",
+            "name": "create_event",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/chat/send",
+            "name": "send_message",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/ws/chat/{token}",
+            "name": "websocket_endpoint",
+            "methods": []
+        },
+        {
+            "path": "/chat/history/{other_user_id}",
+            "name": "get_history",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/api/location/update",
+            "name": "update_location",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/api/location/nearby",
+            "name": "get_nearby_users",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/wallet/balance",
+            "name": "get_balance",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/wallet/top-up",
+            "name": "top_up_wallet",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/wallet/withdraw",
+            "name": "withdraw_money",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/reports/report-user",
+            "name": "report_user",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/reports/my-reports",
+            "name": "get_my_reports",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/gamification/badges",
+            "name": "get_all_badges",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/gamification/my-badges",
+            "name": "get_user_badges",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/gamification/check-achievements",
+            "name": "check_achievements",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/settings/profile",
+            "name": "update_profile",
+            "methods": [
+                "PUT"
+            ]
+        },
+        {
+            "path": "/settings/preferences",
+            "name": "update_preferences",
+            "methods": [
+                "PUT"
+            ]
+        },
+        {
+            "path": "/settings/me",
+            "name": "get_current_user_full",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/activity/history",
+            "name": "get_event_history",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/activity/like/{event_id}",
+            "name": "like_event",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/activity/liked-events",
+            "name": "get_liked_events",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/support/tickets",
+            "name": "create_ticket",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/support/tickets",
+            "name": "get_my_tickets",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/support/rules",
+            "name": "get_community_rules",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/marketplace/items",
+            "name": "create_item",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/marketplace/items",
+            "name": "list_items",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/marketplace/items/{item_id}",
+            "name": "delete_item",
+            "methods": [
+                "DELETE"
+            ]
+        },
+        {
+            "path": "/marketplace/items/{item_id}/buy",
+            "name": "buy_item",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/reviews",
+            "name": "create_review",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/reviews/user/{user_id}",
+            "name": "get_user_reviews",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/reviews/average/{user_id}",
+            "name": "get_average_rating",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/payments/initialize-3ds",
+            "name": "initialize_3ds",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/payments/callback",
+            "name": "payment_callback",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/payments/transactions",
+            "name": "get_transactions",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/venues",
+            "name": "list_venues",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/venues",
+            "name": "create_venue",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/interact/icebreaker/{event_id}",
+            "name": "get_icebreaker_question",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/interact/voice-room/{event_id}",
+            "name": "get_voice_room",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/tracking/update-location",
+            "name": "update_event_live_location",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/tracking/event-map/{event_id}",
+            "name": "get_event_live_map",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/tracking/directions",
+            "name": "get_route",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/tracking/ws/{event_id}/{token}",
+            "name": "websocket_tracking",
+            "methods": []
+        },
+        {
+            "path": "/api/upload/image",
+            "name": "upload_image",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/users/",
+            "name": "create_user",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/users/",
+            "name": "read_users",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/users/upload-profile",
+            "name": "upload_profile_image",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/users/verify/id-card",
+            "name": "upload_id_card",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/users/verify/identity",
+            "name": "verify_identity",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/users/verify/student-document",
+            "name": "verify_student_document",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/verify/send-email-otp",
+            "name": "send_email_otp",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/verify/email",
+            "name": "verify_email",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/verify/send-phone-otp",
+            "name": "send_phone_otp",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/verify/phone",
+            "name": "verify_phone",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/me",
+            "name": "get_current_user_profile",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/update-profile",
+            "name": "update_profile",
+            "methods": [
+                "PATCH"
+            ]
+        },
+        {
+            "path": "/update-settings",
+            "name": "update_settings",
+            "methods": [
+                "PATCH"
+            ]
+        },
+        {
+            "path": "/change-password",
+            "name": "change_password",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/support-ticket",
+            "name": "create_support_ticket",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/notifications/",
+            "name": "get_notifications",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/notifications/{notification_id}/read",
+            "name": "mark_as_read",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/participants/join/{event_id}",
+            "name": "join_event",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/participants/scan-qr/{event_id}",
+            "name": "scan_qr_code",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/participants/my-events",
+            "name": "get_my_events",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/participants/ticket/{event_id}",
+            "name": "get_event_ticket",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/participants/validate-ticket",
+            "name": "validate_participant_ticket",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/participants/leave/{event_id}",
+            "name": "leave_event",
+            "methods": [
+                "DELETE"
+            ]
+        },
+        {
+            "path": "/security/change-password",
+            "name": "change_password",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/security/devices",
+            "name": "get_login_devices",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/security/devices/{device_id}",
+            "name": "logout_device",
+            "methods": [
+                "DELETE"
+            ]
+        },
+        {
+            "path": "/clubs/",
+            "name": "create_club",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/clubs/",
+            "name": "list_clubs",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/clubs/{club_id}/join",
+            "name": "join_club",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/clubs/{club_id}/members",
+            "name": "get_club_members",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/social/friends/request",
+            "name": "send_friend_request",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/social/friends/accept",
+            "name": "accept_friend_request",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/social/moments",
+            "name": "create_moment",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/social/moments/feed",
+            "name": "get_moments_feed",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/intelligence/recommendations",
+            "name": "get_recommendations",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/intelligence/moderate",
+            "name": "moderate_content",
+            "methods": [
+                "POST"
+            ]
+        },
+        {
+            "path": "/",
+            "name": "read_root",
+            "methods": [
+                "GET",
+                "HEAD"
+            ]
+        },
+        {
+            "path": "/dashboard",
+            "name": "get_dashboard",
+            "methods": [
+                "GET"
+            ]
+        },
+        {
+            "path": "/admin",
+            "name": "get_admin",
+            "methods": [
+                "GET"
+            ]
+        }
+    ],
+    "database_content": {
+        "users": [],
+        "icebreaker_questions": [],
+        "badges": [],
+        "campus_venues": [],
+        "events": [],
+        "user_badges": [],
+        "messages": [],
+        "login_devices": [],
+        "saved_cards": [],
+        "support_tickets": [],
+        "transactions": [],
+        "marketplace_items": [],
+        "notifications": [],
+        "event_participants": [],
+        "user_reports": [],
+        "event_live_tracking": [],
+        "voice_rooms": [],
+        "activity_chat_logs": [],
+        "event_likes": [],
+        "user_reviews": [],
+        "clubs": [],
+        "friendships": [],
+        "event_moments": [],
+        "club_members": []
+    }
+}

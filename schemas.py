@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, field_validator, ConfigDict
+from pydantic import BaseModel, EmailStr, field_validator, ConfigDict, Field
 from typing import Optional, List
 from uuid import UUID
 from datetime import date, datetime
@@ -11,15 +11,15 @@ class Gender(str, enum.Enum):
     K = "K"
 
 class TargetGender(str, enum.Enum):
-    HERKES = "Herkes"
-    SADECE_KIZLAR = "Sadece Kızlar"
-    SADECE_ERKEKLER = "Sadece Erkekler"
+    HERKES = "HERKES"
+    SADECE_KIZLAR = "SADECE_KIZLAR"
+    SADECE_ERKEKLER = "SADECE_ERKEKLER"
 
 class EventStatus(str, enum.Enum):
-    AKTIF = "Aktif"
-    DOLDU = "Doldu"
-    IPTAL = "İptal"
-    TAMAMLANDI = "Tamamlandı"
+    AKTIF = "AKTIF"
+    DOLDU = "DOLDU"
+    IPTAL = "IPTAL"
+    TAMAMLANDI = "TAMAMLANDI"
 
 # --- Token Schemas ---
 class Token(BaseModel):
@@ -29,17 +29,27 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: Optional[str] = None
 
+# --- Interest Schemas ---
+class InterestOut(BaseModel):
+    id: int
+    name: str
+    model_config = ConfigDict(from_attributes=True)
+
 # --- User Schemas ---
 class UserBase(BaseModel):
-    email: EmailStr
-    full_name: str
-    phone_number: Optional[str] = None
-    city: Optional[str] = None
+    email: EmailStr = Field(..., examples=["ogrenci@universite.edu.tr"])
+    full_name: str = Field(..., examples=["Ahmet Yılmaz"])
+    phone_number: Optional[str] = Field(None, examples=["+905551234567"])
+    city: Optional[str] = Field(None, examples=["İstanbul"])
     
     # New Fields
     birth_date: date
     gender: Gender
     department: Optional[str] = None
+    university_id: Optional[str] = None
+    interests: List["InterestOut"] = []
+
+    model_config = ConfigDict(from_attributes=True)
 
     @field_validator('phone_number')
     def validate_phone_number(cls, v):
@@ -57,6 +67,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    kvkk_accepted: bool = Field(..., description="KVKK Aydınlatma Metni onayı")
 
     @field_validator('password')
     def validate_password(cls, v):
@@ -67,14 +78,32 @@ class UserCreate(UserBase):
         return v
 
 class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
+    email: EmailStr = Field(..., examples=["ogrenci@universite.edu.tr"])
+    password: str = Field(..., examples=["Sifre123!"])
 
     @field_validator('email')
     def validate_edu_email(cls, v):
         if not v.endswith('.edu.tr'):
             raise ValueError('Giriş yapmak için .edu.tr uzantılı e-posta adresinizi kullanmalısınız.')
         return v
+
+class UserPublic(BaseModel):
+    id: UUID
+    full_name: str
+    profile_image: Optional[str] = None
+    city: Optional[str] = None
+    gender: Gender
+    department: Optional[str] = None
+    trust_score: int
+    
+    bio: Optional[str] = None
+    favorite_music_url: Optional[str] = None
+    blue_tick_status: str
+    is_verified: bool
+    is_student_verified: bool
+    kvkk_accepted: bool
+    
+    model_config = ConfigDict(from_attributes=True)
 
 class UserOut(UserBase):
     id: UUID
@@ -83,6 +112,7 @@ class UserOut(UserBase):
     student_document_url: Optional[str] = None
     trust_score: int
     wallet_balance: float
+    tc_no: Optional[str] = None
     
     # Settings & Verification
     bio: Optional[str] = None
@@ -95,10 +125,8 @@ class UserOut(UserBase):
     # Verification Info
     blue_tick_status: str
     is_verified: bool
-
-    # Current Location
-    current_latitude: Optional[float] = None
-    current_longitude: Optional[float] = None
+    is_student_verified: bool
+    kvkk_accepted: bool
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -110,8 +138,8 @@ class UserProfileUpdate(BaseModel):
     tc_no: Optional[str] = None
     birth_date: Optional[date] = None
     id_card_front_url: Optional[str] = None
-    id_card_front_url: Optional[str] = None
     id_card_back_url: Optional[str] = None
+    interests: Optional[List[str]] = None
 
 class StudentVerifyRequest(BaseModel):
     barcode: str
@@ -170,8 +198,8 @@ class EventBase(BaseModel):
     date: datetime
     
     # Location updates
-    latitude: float
-    longitude: float
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
 
     min_age_limit: int
     max_age_limit: int
@@ -182,7 +210,6 @@ class EventBase(BaseModel):
     campus_restriction: Optional[str] = None
     gender_restriction: Optional[str] = None
     deposit_amount: float = 0.00
-    session_token: Optional[str] = None
 
     city: Optional[str] = None
     campus: Optional[str] = None
@@ -196,7 +223,8 @@ class EventBase(BaseModel):
     location_name: Optional[str] = None
 
 class EventCreate(EventBase):
-    pass
+    # Session token sadece oluşturulurken veya sunucu tarafında set edilir
+    session_token: Optional[str] = None
 
 class EventOut(EventBase):
     id: UUID
@@ -319,4 +347,54 @@ class NotificationOut(BaseModel):
     is_read: bool
     created_at: datetime
     
+    model_config = ConfigDict(from_attributes=True)
+
+# --- Club & Social Schemas ---
+class ClubBase(BaseModel):
+    name: str = Field(..., examples=["Müzik Kulübü"])
+    description: str
+    logo_url: Optional[str] = None
+    is_official: bool = False
+
+class ClubCreate(ClubBase):
+    pass
+
+class ClubOut(ClubBase):
+    id: int
+    created_at: datetime
+    model_config = ConfigDict(from_attributes=True)
+
+class ClubMemberOut(BaseModel):
+    user_id: UUID
+    club_id: int
+    role: str
+    joined_at: datetime
+    model_config = ConfigDict(from_attributes=True)
+
+class FriendshipRequest(BaseModel):
+    friend_id: UUID
+
+class FriendshipOut(BaseModel):
+    user_id: UUID
+    friend_id: UUID
+    status: str
+    created_at: datetime
+    model_config = ConfigDict(from_attributes=True)
+
+class MomentCreate(BaseModel):
+    event_id: UUID
+    media_url: str
+    caption: Optional[str] = None
+    location_name: Optional[str] = None
+
+class MomentOut(BaseModel):
+    id: int
+    event_id: UUID
+    user_id: UUID
+    media_url: str
+    caption: Optional[str]
+    created_at: datetime
+    expires_at: datetime
+    view_count: int
+    location_name: Optional[str]
     model_config = ConfigDict(from_attributes=True)

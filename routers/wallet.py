@@ -25,7 +25,14 @@ def top_up_wallet(
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(security.get_current_user)
 ):
-    """Cüzdana bakiye yükler (Demo amaçlı doğrudan ekler)."""
+    """
+    Cüzdana bakiye yükler (SADECE DEBUG/TEST MODUNDA ÇALIŞIR).
+    Production ortamında Iyzico callback'leri kullanılmalıdır.
+    """
+    # Güvenlik Kontrolü: Canlı ortamda bu endpoint kapatılmalı
+    if os.getenv("APP_ENV", "development") == "production":
+        raise HTTPException(status_code=403, detail="Bu işlem canlı ortamda devre dışıdır. Ödeme sayfasını kullanın.")
+
     if amount <= 0:
         raise HTTPException(status_code=400, detail="Miktar 0'dan büyük olmalıdır.")
     

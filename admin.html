@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtıBir Patron Paneli - Executive Suite</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --gold: #d4af37;
+        --gold-glow: rgba(212, 175, 55, 0.3);
+        --bg: #050608;
+        --sidebar: #0a0b10;
+        --card: #11121a;
+        --text-gold: #f3e5ab;
+        --text: #ffffff;
+        --text-dim: #8a8d9b;
+        --border: rgba(212, 175, 55, 0.1);
+        --success: #10b981;
+        --error: #ef4444;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Outfit", sans-serif;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Sidebar - Premium Side */
+      aside {
+        width: 280px;
+        background: var(--sidebar);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 2.5rem 1.5rem;
+      }
+
+      .logo {
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+      .logo h1 {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--gold);
+        text-shadow: 0 0 20px var(--gold-glow);
+        letter-spacing: 2px;
+      }
+      .logo p {
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        color: var(--text-dim);
+        margin-top: 5px;
+      }
+
+      .nav-group {
+        margin-bottom: 2.5rem;
+      }
+      .nav-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 1.2rem;
+        padding-left: 0.5rem;
+        opacity: 0.6;
+      }
+      .nav-item {
+        padding: 1rem 1.2rem;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: var(--text-dim);
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid transparent;
+      }
+      .nav-item:hover {
+        background: rgba(212, 175, 55, 0.05);
+        color: #fff;
+        border-color: rgba(212, 175, 55, 0.2);
+      }
+      .nav-item.active {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 175, 55, 0.2),
+          transparent
+        );
+        color: var(--gold);
+        border-color: var(--border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Main View */
+      main {
+        flex: 1;
+        padding: 2.5rem 4rem;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+      }
+
+      .header-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+      }
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .user-profile img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+      }
+
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Dashboard Overview */
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .kpi-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 2rem;
+        border-radius: 20px;
+        position: relative;
+      }
+      .kpi-card h3 {
+        font-size: 0.75rem;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .kpi-card .val {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--gold);
+      }
+      .kpi-card .trend {
+        font-size: 0.75rem;
+        margin-top: 10px;
+        color: var(--success);
+      }
+
+      /* Table Design */
+      .data-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 2rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        padding: 1.2rem 1.5rem;
+        background: rgba(212, 175, 55, 0.03);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--gold);
+        letter-spacing: 1px;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        font-size: 0.9rem;
+      }
+      tr:hover {
+        background: rgba(255, 255, 255, 0.01);
+      }
+
+      /* Issue Tracker (Diagnostics) */
+      .issue-log {
+        background: #08090d;
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .issue-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .issue-tag {
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 0.7rem;
+        min-width: 80px;
+        text-align: center;
+      }
+      .tag-err {
+        background: rgba(239, 68, 68, 0.15);
+        color: var(--error);
+      }
+      .tag-info {
+        background: rgba(16, 185, 129, 0.15);
+        color: var(--success);
+      }
+
+      /* Search & Filter */
+      .search-container {
+        position: relative;
+      }
+      .search-input {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 0.8rem 1.5rem;
+        border-radius: 12px;
+        color: #fff;
+        width: 300px;
+        outline: none;
+      }
+      .search-input:focus {
+        border-color: var(--gold);
+      }
+
+      /* Loader */
+      #executive-loader {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .gold-spinner {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--gold-glow);
+        border-top-color: var(--gold);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      /* Mobile Hub Simulator */
+      .mobile-hub-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+      .phone-frame {
+        width: 340px;
+        height: 680px;
+        background: #000;
+        border: 8px solid #1a1b1f;
+        border-radius: 45px;
+        position: relative;
+        box-shadow:
+          0 30px 60px rgba(0, 0, 0, 0.8),
+          0 0 20px var(--gold-glow);
+        overflow: hidden;
+      }
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: #050505;
+        display: flex;
+        flex-direction: column;
+      }
+      .phone-header {
+        padding: 40px 20px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .phone-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0 15px;
+      }
+      .phone-navbar {
+        height: 60px;
+        background: #0a0b10;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .m-card {
+        background: #11121a;
+        border-radius: 15px;
+        padding: 12px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .m-banner {
+        width: 100%;
+        height: 120px;
+        border-radius: 10px;
+        background: linear-gradient(45deg, #1e1e2d, #0d0d0f);
+        margin-bottom: 10px;
+        overflow: hidden;
+        position: relative;
+      }
+      .m-banner::after {
+        content: "ARTIBIR EVENT";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6rem;
+        color: var(--gold);
+        opacity: 0.3;
+        font-weight: 800;
+        letter-spacing: 2px;
+      }
+      .phone-status-bar {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 30px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="executive-loader">
+      <div class="gold-spinner"></div>
+      <p
+        style="
+          margin-top: 2rem;
+          color: var(--gold);
+          letter-spacing: 3px;
+          font-weight: 300;
+          font-size: 0.8rem;
+        "
+      >
+        AUTHENTICATING EXECUTIVE ACCESS...
+      </p>
+    </div>
+
+    <aside>
+      <div class="logo">
+        <h1>ARTIBİR</h1>
+        <p>Executive Suite v7.0</p>
+      </div>
+
+      <div class="nav-group">
+        <p class="nav-label">Genel Bakış</p>
+        <div class="nav-item active" onclick="switchSection('kpi', this)">
+          👑 Kontrol Merkezi
+        </div>
+        <div class="nav-item" onclick="switchSection('users', this)">
+          👥 Kullanıcı Takibi
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <p class="nav-label">Sorun & Teşhis</p>
+        <div class="nav-item" onclick="switchSection('diagnostics', this)">
+          🔍 Sorun Kaynakları
+        </div>
+        <div class="nav-item" onclick="switchSection('mobile-hub', this)">
+          📱 Mobil Önizleme
+        </div>
+        <div class="nav-item" onclick="switchSection('health', this)">
+          🛡️ Sistem Güvenliği
+        </div>
+      </div>
+
+      <div style="margin-top: auto">
+        <div
+          class="nav-item"
+          onclick="window.location.href = '/dashboard'"
+          style="color: var(--gold-glow); opacity: 0.7"
+        >
+          🛠️ Teknik Panele Geç
+        </div>
+        <div class="nav-item" onclick="location.reload()">
+          🔄 Verileri Tazele
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="header-bar">
+        <h2 id="section-title">Kontrol Merkezi</h2>
+        <div class="user-profile">
+          <div>
+            <p style="text-align: right; font-weight: 600">Patron</p>
+            <p style="font-size: 0.7rem; color: var(--text-dim)">
+              ArtıBir CEO Access
+            </p>
+          </div>
+          <img
+            src="https://ui-avatars.com/api/?name=BOSS&background=d4af37&color=fff"
+            alt="Boss"
+          />
+        </div>
+      </div>
+
+      <!-- SEC: KPI Overview -->
+      <section id="kpi" class="section active">
+        <div class="kpi-grid" id="kpi-content"></div>
+
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem">
+          <div class="kpi-card" style="height: 400px">
+            <h3>Büyüme Analizi</h3>
+            <canvas id="bossChart"></canvas>
+          </div>
+          <div class="kpi-card">
+            <h3>Son Aktiviteler</h3>
+            <div id="recent-pulse"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEC: User Management -->
+      <section id="users" class="section">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <h3>Kayıtlı Kullanıcı Listesi</h3>
+          <div class="search-container">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="İsim veya e-posta ara..."
+              onkeyup="filterUsers(this.value)"
+            />
+          </div>
+        </div>
+        <div class="data-box">
+          <table id="user-table">
+            <thead>
+              <tr>
+                <th>Profil</th>
+                <th>İsim / Soyisim</th>
+                <th>E-Posta (.edu.tr)</th>
+                <th>Şehir</th>
+                <th>Statü</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="user-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SEC: Diagnostics (Source of Problems) -->
+      <section id="diagnostics" class="section">
+        <h3 style="margin-bottom: 2rem">🚨 Sistem Sorunları ve Kaynakları</h3>
+        <div class="issue-log" id="diagnostic-log"></div>
+      </section>
+
+      <!-- SEC: Health Dashboard -->
+      <section id="health" class="section">
+        <div class="kpi-grid" id="health-grid"></div>
+      </section>
+
+      <!-- SEC: Mobile Hub Simulator -->
+      <section id="mobile-hub" class="section">
+        <div style="display: flex; gap: 4rem; align-items: center">
+          <div class="mobile-hub-container">
+            <div class="phone-frame">
+              <div class="phone-status-bar">
+                <span>18:31</span>
+                <div style="display: flex; gap: 5px">📶 🔋</div>
+              </div>
+              <div class="phone-screen" id="mobile-sim">
+                <div class="phone-header">
+                  <h4
+                    style="
+                      font-size: 0.9rem;
+                      font-weight: 800;
+                      letter-spacing: 1px;
+                    "
+                  >
+                    KEŞFET
+                  </h4>
+                  <div
+                    style="
+                      width: 24px;
+                      height: 24px;
+                      border-radius: 50%;
+                      background: var(--card);
+                      border: 1px solid var(--gold);
+                    "
+                  ></div>
+                </div>
+                <div class="phone-content" id="sim-content">
+                  <!-- Simulated Events Load Here -->
+                </div>
+                <div class="phone-navbar">
+                  <span style="color: var(--gold); font-size: 0.8rem">🏠</span>
+                  <span style="opacity: 0.3; font-size: 0.8rem">💬</span>
+                  <span style="opacity: 0.3; font-size: 0.8rem">➕</span>
+                  <span style="opacity: 0.3; font-size: 0.8rem">💼</span>
+                  <span style="opacity: 0.3; font-size: 0.8rem">👤</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="flex: 1">
+            <h2 style="color: var(--gold); margin-bottom: 1.5rem">
+              Canlı Mobil Simülasyon
+            </h2>
+            <p style="color: var(--text-dim); margin-bottom: 2rem">
+              Bu bölüm, veritabanındaki gerçek verileri kullanarak mobil
+              uygulamanın nasıl göründüğünü anlık olarak yansıtır. Etkinliklerin
+              ve duyuruların mobil cihazlardaki sunumunu buradan takip
+              edebilirsiniz.
+            </p>
+            <div class="kpi-card">
+              <h3 style="color: var(--success)">● SENKRONİZE EDİLDİ</h3>
+              <p style="font-size: 0.8rem; margin-top: 10px">
+                Şu an mobil arayüz v2.4 (Onyx & Electric) mimarisini simüle
+                ediyorsunuz.
+              </p>
+            </div>
+            <button
+              class="nav-item"
+              style="
+                margin-top: 2rem;
+                width: fit-content;
+                border: 1px solid var(--gold);
+                background: transparent;
+                color: var(--gold);
+              "
+              onclick="renderSim()"
+            >
+              🔄 Simülasyonu Güncelle
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      let db = null;
+      let logs = null;
+
+      async function init() {
+        try {
+          const [r1, r2] = await Promise.all([
+            fetch("/data/master_backend_snapshot.json"),
+            fetch("/data/tracking.json").catch(() => ({ json: () => [] })),
+          ]);
+          db = await r1.json();
+          logs = await r2.json();
+
+          document.getElementById("executive-loader").style.display = "none";
+
+          renderKPIs();
+          renderUsers();
+          renderDiagnostics();
+          renderHealth();
+          renderChart();
+          renderSim();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function switchSection(id, el) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((n) => n.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+        el.classList.add("active");
+        document.getElementById("section-title").innerText = el.innerText;
+      }
+
+      function renderKPIs() {
+        const container = document.getElementById("kpi-content");
+        const users = db.database.users.row_count;
+        const events = db.database.events.row_count;
+        const messages = db.database.messages?.row_count || 0;
+        const clubs = db.database.clubs?.row_count || 0;
+
+        container.innerHTML = `
+                <div class="kpi-card"><h3>Toplam Üye</h3><div class="val">${users}</div><div class="trend">+12% (Haftalık)</div></div>
+                <div class="kpi-card"><h3>Canlı Etkinlik</h3><div class="val">${events}</div><div class="trend">+5% (Günlük)</div></div>
+                <div class="kpi-card"><h3>Aktif Kulüpler</h3><div class="val">${clubs}</div><div class="trend">Yeni</div></div>
+                <div class="kpi-card"><h3>Sistem Sağlığı</h3><div class="val" style="color:var(--success)">%100</div><div class="trend">Güvenli</div></div>
+            `;
+      }
+
+      function renderUsers() {
+        const body = document.getElementById("user-body");
+        const data = db.database.users.data;
+
+        body.innerHTML = data
+          .map(
+            (u) => `
+                <tr>
+                    <td><img src="${u.profile_image || "https://ui-avatars.com/api/?name=" + u.full_name}" style="width:32px; border-radius:50%"></td>
+                    <td style="font-weight:600">${u.full_name}</td>
+                    <td style="color:var(--gold)">${u.email}</td>
+                    <td>${u.city || "-"}</td>
+                    <td><span style="color:var(--success)">● Aktif</span></td>
+                    <td><button style="background:none; border:none; color:var(--text-dim); cursor:pointer;">Detay</button></td>
+                </tr>
+            `,
+          )
+          .join("");
+      }
+
+      function renderDiagnostics() {
+        const logContainer = document.getElementById("diagnostic-log");
+        if (!logs || logs.length === 0) {
+          logContainer.innerHTML =
+            "<p style='padding:1rem;'>Şu an sistemde raporlanan bir sorun bulunmuyor.</p>";
+          return;
+        }
+
+        // Filter errors and important logs
+        const criticalLogs = logs.filter(
+          (l) =>
+            l.event_type.includes("ERROR") ||
+            l.event_type.includes("FAIL") ||
+            l.event_type.includes("AUTH"),
+        );
+
+        logContainer.innerHTML = criticalLogs
+          .reverse()
+          .slice(0, 50)
+          .map(
+            (l) => `
+                <div class="issue-item">
+                    <span class="issue-tag ${l.event_type.includes("ERR") ? "tag-err" : "tag-info"}">${l.event_type}</span>
+                    <div style="flex:1">
+                        <div style="font-weight:600; font-family:'JetBrains Mono',monospace; font-size:0.85rem;">${l.path || "System Event"}</div>
+                        <div style="color:var(--text-dim); font-size:0.8rem; margin-top:5px;">Kaynak: ${JSON.stringify(l.details || l.ip || "Backend Engine")}</div>
+                    </div>
+                    <div style="color:var(--gold); font-size:0.75rem;">${new Date(l.timestamp).toLocaleString("tr-TR")}</div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function renderHealth() {
+        const container = document.getElementById("health-grid");
+        const securityItems = [
+          { n: "E-Posta Filtresi", v: ".edu.tr Aktif", s: "SAFE" },
+          { n: "AI Moderasyon", v: "AIEngine v1", s: "SAFE" },
+          { n: "Veritabanı Şifreleme", v: "AES-256", s: "SAFE" },
+          { n: "API Erişimi", v: "Limitli (5 r/m)", s: "SAFE" },
+        ];
+        container.innerHTML = securityItems
+          .map(
+            (i) => `
+                <div class="kpi-card" style="border-left: 4px solid var(--success)">
+                    <h3>${i.n}</h3>
+                    <div class="val" style="font-size:1.2rem">${i.v}</div>
+                    <div class="trend" style="color:var(--success)">DURUM: ${i.s}</div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function renderChart() {
+        const ctx = document.getElementById("bossChart").getContext("2d");
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+            datasets: [
+              {
+                label: "Yeni Üye",
+                data: [5, 12, 8, 15, 20, 25, 30],
+                backgroundColor: "rgba(212, 175, 55, 0.4)",
+                borderColor: "#d4af37",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: { grid: { color: "rgba(255,255,255,0.05)" } },
+              x: { grid: { display: false } },
+            },
+          },
+        });
+      }
+
+      function filterUsers(q) {
+        const rows = document.querySelectorAll("#user-body tr");
+        rows.forEach((r) => {
+          r.style.display = r.innerText.toLowerCase().includes(q.toLowerCase())
+            ? ""
+            : "none";
+        });
+      }
+
+      function renderSim() {
+        const container = document.getElementById("sim-content");
+        const events = db.database.events.data.slice(0, 5);
+
+        container.innerHTML = events
+          .map(
+            (ev) => `
+                <div class="m-card">
+                    <div class="m-banner"></div>
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #fff;">${ev.title.toUpperCase()}</div>
+                    <div style="font-size: 0.6rem; color: var(--gold); margin-top: 4px;">📍 ${ev.location || "Kampüs"}</div>
+                    <div style="font-size: 0.55rem; color: var(--text-dim); margin-top: 5px; display: flex; justify-content: space-between;">
+                        <span>👤 ${ev.creator_id?.substring(0, 8) || "Admin"}</span>
+                        <span style="color: var(--success);">AKTİF</span>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+
+        if (events.length === 0) {
+          container.innerHTML =
+            "<div style='text-align:center; padding-top:100px; color:var(--text-dim); font-size:0.7rem;'>HENÜZ ETKİNLİK YOK</div>";
+        }
+      }
+
+      init();
+    </script>
+  </body>
+</html>

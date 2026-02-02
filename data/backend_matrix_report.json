@@ -1,0 +1,305 @@
+{
+  "metadata": {
+    "type": "Matrix/Grid Report",
+    "generated_at": "2026-01-30T19:51:11.131749",
+    "description": "Compact representation of data in matrix (row/column) format."
+  },
+  "database_matrix": {
+    "users": {
+      "headers": [
+        "id",
+        "email",
+        "password",
+        "full_name",
+        "profile_image",
+        "phone_number",
+        "city",
+        "is_verified",
+        "student_document_url",
+        "birth_date",
+        "gender",
+        "trust_score",
+        "wallet_balance",
+        "department",
+        "bio",
+        "favorite_music_url",
+        "is_private",
+        "ghost_mode",
+        "show_way_to_everyone",
+        "theme_preference",
+        "language_preference",
+        "data_saver_mode",
+        "notify_event_reminders",
+        "notify_campus_announcements",
+        "notify_social",
+        "current_latitude",
+        "current_longitude",
+        "last_location_update",
+        "tc_no",
+        "id_card_front_url",
+        "id_card_back_url",
+        "blue_tick_status",
+        "is_email_verified",
+        "is_phone_verified",
+        "email_verification_code",
+        "phone_verification_code",
+        "password_reset_code",
+        "student_document_barcode",
+        "is_student_verified"
+      ],
+      "rows": [],
+      "shape": "0x39"
+    },
+    "icebreaker_questions": {
+      "headers": [
+        "id",
+        "category",
+        "question_text",
+        "is_active"
+      ],
+      "rows": [],
+      "shape": "0x4"
+    },
+    "badges": {
+      "headers": [
+        "id",
+        "name",
+        "icon_url",
+        "criteria_type",
+        "threshold"
+      ],
+      "rows": [],
+      "shape": "0x5"
+    },
+    "campus_venues": {
+      "headers": [
+        "id",
+        "name",
+        "latitude",
+        "longitude",
+        "address",
+        "discount_rate",
+        "category",
+        "is_active"
+      ],
+      "rows": [],
+      "shape": "0x8"
+    },
+    "events": {
+      "headers": [
+        "id",
+        "host_id",
+        "title",
+        "description",
+        "date",
+        "location",
+        "latitude",
+        "longitude",
+        "min_age_limit",
+        "max_age_limit",
+        "target_gender",
+        "status",
+        "campus_restriction",
+        "gender_restriction",
+        "deposit_amount",
+        "session_token",
+        "city",
+        "campus",
+        "category",
+        "image_url",
+        "external_url",
+        "capacity",
+        "price",
+        "location_name"
+      ],
+      "rows": [],
+      "shape": "0x24"
+    },
+    "user_badges": {
+      "headers": [
+        "user_id",
+        "badge_id",
+        "earned_at"
+      ],
+      "rows": [],
+      "shape": "0x3"
+    },
+    "messages": {
+      "headers": [
+        "id",
+        "sender_id",
+        "receiver_id",
+        "content",
+        "timestamp",
+        "is_read"
+      ],
+      "rows": [],
+      "shape": "0x6"
+    },
+    "login_devices": {
+      "headers": [
+        "id",
+        "user_id",
+        "device_name",
+        "last_login",
+        "ip_address",
+        "is_active"
+      ],
+      "rows": [],
+      "shape": "0x6"
+    },
+    "saved_cards": {
+      "headers": [
+        "id",
+        "user_id",
+        "card_holder",
+        "last_four",
+        "card_type",
+        "card_token",
+        "card_user_key",
+        "expiry_date"
+      ],
+      "rows": [],
+      "shape": "0x8"
+    },
+    "support_tickets": {
+      "headers": [
+        "id",
+        "user_id",
+        "subject",
+        "message",
+        "status",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x6"
+    },
+    "transactions": {
+      "headers": [
+        "id",
+        "user_id",
+        "amount",
+        "payment_id",
+        "conversation_id",
+        "status",
+        "transaction_type",
+        "description",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x9"
+    },
+    "marketplace_items": {
+      "headers": [
+        "id",
+        "owner_id",
+        "title",
+        "description",
+        "price",
+        "category",
+        "image_url",
+        "status",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x9"
+    },
+    "notifications": {
+      "headers": [
+        "id",
+        "user_id",
+        "title",
+        "message",
+        "type",
+        "is_read",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x7"
+    },
+    "event_participants": {
+      "headers": [
+        "id",
+        "event_id",
+        "user_id",
+        "status",
+        "payment_status",
+        "qr_scanned",
+        "check_in_time"
+      ],
+      "rows": [],
+      "shape": "0x7"
+    },
+    "user_reports": {
+      "headers": [
+        "id",
+        "reporter_id",
+        "reported_id",
+        "event_id",
+        "reason",
+        "details",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x7"
+    },
+    "event_live_tracking": {
+      "headers": [
+        "id",
+        "event_id",
+        "user_id",
+        "latitude",
+        "longitude",
+        "status",
+        "transport_type",
+        "last_updated"
+      ],
+      "rows": [],
+      "shape": "0x8"
+    },
+    "voice_rooms": {
+      "headers": [
+        "id",
+        "event_id",
+        "room_token",
+        "is_active",
+        "expires_at"
+      ],
+      "rows": [],
+      "shape": "0x5"
+    },
+    "activity_chat_logs": {
+      "headers": [
+        "id",
+        "event_id",
+        "question_id",
+        "sent_at"
+      ],
+      "rows": [],
+      "shape": "0x4"
+    },
+    "event_likes": {
+      "headers": [
+        "user_id",
+        "event_id",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x3"
+    },
+    "user_reviews": {
+      "headers": [
+        "id",
+        "reviewer_id",
+        "reviewed_id",
+        "event_id",
+        "rating",
+        "comment",
+        "created_at"
+      ],
+      "rows": [],
+      "shape": "0x7"
+    }
+  },
+  "api_summary": "More details in master_snapshot.json"
+}

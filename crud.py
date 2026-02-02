@@ -1,11 +1,24 @@
 from sqlalchemy.orm import Session
+import math
 import models, schemas, security
+import uuid
 from uuid import UUID
 import datetime
-import math
+from fastapi import HTTPException
+from utils import tracking
 
 # --- Events ---
 def create_event(db: Session, event: schemas.EventCreate, host_id: UUID):
+    # 1. Moderation Check (Küfür/Sorunlu içerik kontrolü)
+    is_safe_title, reason_title = moderation.check_message(event.title, 100) # Host her zaman yetkili sayılır ama başlık temiz olmalı
+    is_safe_desc, reason_desc = moderation.check_message(event.description, 100)
+    
+    if not is_safe_title or not is_safe_desc:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"İçerik kurallara aykırı: {reason_title if not is_safe_title else reason_desc}"
+        )
+
     # Location conversion from lat/lon to WKT
     # PostGIS expects 'POINT(longitude latitude)'
     location_wkt = f"POINT({event.longitude} {event.latitude})"
@@ -32,23 +45,41 @@ def create_event(db: Session, event: schemas.EventCreate, host_id: UUID):
         
         # New Fields
         capacity=event.capacity,
-        price=event.price,
+        price=event.price if event.price > 0 else event.deposit_amount,
+        deposit_amount=event.deposit_amount if event.deposit_amount > 0 else event.price,
         location_name=event.location_name,
-        
+        session_token=str(uuid.uuid4()), # QR Kod için oturum anahtarı
         host_id=host_id
     )
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
+    
+    # JSON Takibi
+    tracking.log_event("CREATE_EVENT", {
+        "event_id": str(db_event.id),
+        "title": db_event.title,
+        "city": db_event.city
+    }, host_id)
+    
     return db_event
 
-def get_events(db: Session, city: str = None, category: str = None, skip: int = 0, limit: int = 100):
+def get_events(db: Session, city: str = None, category: str = None, skip: int = 0, limit: int = 100, show_past: bool = False):
     query = db.query(models.Event)
+    
+    # İptal edilmiş etkinlikleri gizle
+    query = query.filter(models.Event.status != models.EventStatus.IPTAL)
+    
+    if not show_past:
+        # 24 saat öncesinden eski etkinlikleri gizle (Varsayılan)
+        cutoff_date = datetime.datetime.utcnow() - datetime.timedelta(hours=24)
+        query = query.filter(models.Event.date >= cutoff_date)
+        
     if city:
         query = query.filter(models.Event.city == city)
     if category:
         query = query.filter(models.Event.category == category)
-    return query.offset(skip).limit(limit).all()
+    return query.order_by(models.Event.date.asc()).offset(skip).limit(limit).all()
 
 def get_nearby_events(db: Session, lat: float, lon: float, radius_km: float = 10.0, limit: int = 50):
     """
@@ -83,21 +114,39 @@ def create_user(db: Session, user: schemas.UserCreate):
         full_name=user.full_name,
         phone_number=user.phone_number,
         city=user.city,
-        # New required fields
         birth_date=user.birth_date,
         gender=user.gender,
         department=user.department,
-        # Defaults handled by DB model or explicit here if needed
+        university_id=user.university_id,
+        kvkk_accepted=user.kvkk_accepted,
         is_verified=False,
         trust_score=50
     )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+    
+    # Otomatik Hoş Geldin Bildirimi
+    welcome_notif = models.Notification(
+        user_id=db_user.id,
+        title="ArtıBir'e Hoş Geldiniz! 🎉",
+        message=f"Merhaba {db_user.full_name}, topluluğumuza katıldığın için mutluyuz. Profilini doğrula ve ilk etkinliğine katıl!",
+        type="system"
+    )
+    db.add(welcome_notif)
+    db.commit()
+    
+    # JSON Takibi
+    tracking.log_event("USER_REGISTER", {
+        "user_id": str(db_user.id),
+        "email": db_user.email,
+        "full_name": db_user.full_name
+    })
+    
     return db_user
 
 # --- Messages ---
-from services import encryption
+from services import encryption, moderation
 
 def create_message(db: Session, message: schemas.MessageCreate, sender_id: UUID):
     encrypted_content = encryption.encrypt_message(message.content)
@@ -122,3 +171,21 @@ def get_chat_history(db: Session, user1_id: UUID, user2_id: UUID):
         msg.content = encryption.decrypt_message(msg.content)
         
     return messages
+
+# --- Background & Cleanup ---
+def cleanup_expired_moments(db: Session):
+    """24 saati dolmuş momentleri (hikayeleri) veritabanından siler."""
+    now = datetime.datetime.utcnow()
+    expired_moments = db.query(models.EventMoment).filter(models.EventMoment.expires_at <= now).all()
+    
+    count = len(expired_moments)
+    for moment in expired_moments:
+        db.delete(moment)
+    
+    if count > 0:
+        db.commit()
+        tracking.log_event("SYSTEM_CLEANUP", {"type": "moments", "count": count})
+    
+    return count
+def get_leaderboard(db: Session, limit: int = 10):
+    return db.query(models.User).order_by(models.User.artibir_points.desc()).limit(limit).all()

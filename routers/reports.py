@@ -63,4 +63,10 @@ def get_my_reports(
 ):
     """Kullanıcının yaptığı şikayetleri listeler."""
     reports = db.query(models.UserReport).filter(models.UserReport.reporter_id == current_user.id).all()
-    return [{"id": r.id, "reason": r.reason, "reported_id": r.reported_id, "created_at": r.created_at} for r in reports]
+    return [{
+        "id": r.id, 
+        "reason": r.reason, 
+        "reported_id": r.reported_id, 
+        "created_at": r.created_at,
+        "status": r.status
+    } for r in reports]

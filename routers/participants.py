@@ -26,6 +26,21 @@ def join_event(
     if not event:
         raise HTTPException(status_code=404, detail="Etkinlik bulunamadı.")
     
+    # KİMLİK & ÖĞRENCİ BELGESİ KONTROLÜ
+    if not current_user.is_verified:
+         raise HTTPException(
+            status_code=403, 
+            detail="Etkinliğe katılmak için TC Kimlik doğrulamanızı tamamlamanız gerekir."
+        )
+    
+    # Katılım için sadece TC yeterli olabilir, ama öğrenci topluluğu ise öğrenci belgesi de istenir.
+    # Kullanıcı isteği: "biri tc doğrulamadan ve öğrenci belgesini doğrulamdan ... yapamaz"
+    if not current_user.is_student_verified:
+         raise HTTPException(
+            status_code=403, 
+            detail="Etkinliğe katılmak için Öğrenci Belgesi doğrulamanızı tamamlamanız gerekir."
+        )
+    
     # Zaten katılmış mı kontrol et
     existing_participant = db.query(models.EventParticipant).filter(
         models.EventParticipant.event_id == event_id,
@@ -34,12 +49,24 @@ def join_event(
     if existing_participant:
         raise HTTPException(status_code=400, detail="Zaten bu etkinliğe katıldınız.")
     
-    # Kapora Kontrolü
+    # Kapora / Ücret Kontrolü (Escrow Logiği)
     if event.deposit_amount > 0:
         if current_user.wallet_balance < event.deposit_amount:
-            raise HTTPException(status_code=400, detail="Yetersiz bakiye. Katılım için kapora ödenmelidir.")
+            raise HTTPException(status_code=400, detail="Yetersiz bakiye. Katılım ücretini ödemek için cüzdanınıza para yükleyin.")
         
+        # 1. Cüzdandan Düş
         current_user.wallet_balance -= event.deposit_amount
+        
+        # 2. İşlem Kaydı Oluştur (Escrow - Havuza Alındı)
+        escrow_tx = models.Transaction(
+            user_id=current_user.id,
+            amount=-event.deposit_amount,
+            status=models.PaymentStatus.PAID,
+            transaction_type="payment_escrow", # Özel tip: Havuzda bekleyen
+            description=f"'{event.title}' etkinliği için katılım ücreti (Havuza Alındı)"
+        )
+        db.add(escrow_tx)
+        
         payment_status = "paid"
     else:
         payment_status = "pending"
@@ -56,7 +83,7 @@ def join_event(
     db.commit()
     
     return {
-        "message": "Etkinliğe başarıyla katıldınız.",
+        "message": "Etkinliğe katıldınız! Ücret güvenli havuz hesabına alındı. Etkinlikte QR kodunuzu okuttuğunuzda organizatöre aktarılacak.",
         "payment_status": payment_status,
         "remaining_balance": current_user.wallet_balance
     }
@@ -183,6 +210,28 @@ def validate_participant_ticket(
     participant.qr_scanned = True
     participant.check_in_time = datetime.utcnow()
     
+    extra_message = ""
+    # --- FUND RELEASE (Escrow Unlock) ---
+    if event.deposit_amount > 0 and participant.payment_status == "paid":
+        # 1. Organizatöre Ekle
+        # event.host (User) ilişkisi yüklü olmalı, yoksa db query gerekir.
+        # SQLAlchemy lazy loading yapabilir ama garanti olsun diye yeniden çekelim veya relation'a güvenelim.
+        host_user = db.query(models.User).filter(models.User.id == event.host_id).first()
+        
+        if host_user:
+            host_user.wallet_balance += event.deposit_amount
+            
+            # 2. İşlem Kaydı (Organizatör Kazancı)
+            earning_tx = models.Transaction(
+                user_id=host_user.id,
+                amount=event.deposit_amount,
+                status=models.PaymentStatus.PAID,
+                transaction_type="earning",
+                description=f"'{event.title}' etkinliği geliri ({participant.user.full_name})"
+            )
+            db.add(earning_tx)
+            extra_message = " ve ücret hesabınıza aktarıldı"
+
     # Katılımcının güven puanını artır
     participant.user.trust_score += 5
     if participant.user.trust_score > 100:
@@ -192,7 +241,7 @@ def validate_participant_ticket(
     
     return {
         "status": "success",
-        "message": f"{participant.user.full_name} için giriş onaylandı.",
+        "message": f"{participant.user.full_name} için giriş onaylandı{extra_message}.",
         "new_trust_score": participant.user.trust_score
     }
 

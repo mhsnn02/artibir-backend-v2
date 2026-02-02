@@ -68,6 +68,34 @@ def delete_item(
     db.commit()
     return {"status": "success", "message": "İlan başarıyla silindi."}
 
+@router.get("/marketplace/my-items", response_model=List[schemas.MarketplaceItemOut])
+def get_my_items(
+    current_user: models.User = Depends(security.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Kullanıcının kendi verdiği ilanları listeler.
+    """
+    return db.query(models.MarketplaceItem).filter(
+        models.MarketplaceItem.owner_id == current_user.id
+    ).order_by(models.MarketplaceItem.created_at.desc()).all()
+
+@router.get("/marketplace/my-purchases", response_model=List[schemas.TransactionOut])
+def get_my_purchases(
+    current_user: models.User = Depends(security.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Kullanıcının satın aldığı ürünlerin transaction geçmişini listeler.
+    """
+    purchases = db.query(models.Transaction).filter(
+        models.Transaction.user_id == current_user.id,
+        models.Transaction.transaction_type == "payment",
+        models.Transaction.description.like("Pazar Alımı:%")
+    ).order_by(models.Transaction.created_at.desc()).all()
+    
+    return purchases
+
 @router.post("/marketplace/items/{item_id}/buy")
 def buy_item(
     item_id: int,
@@ -77,7 +105,9 @@ def buy_item(
     """
     İlanı satın alır (Cüzdan bakiyesi ile).
     """
-    db_item = db.query(models.MarketplaceItem).filter(models.MarketplaceItem.id == item_id).first()
+    # CONCURRENCY FIX: Veritabanı kilitleme (Row-Level Locking)
+    # with_for_update() kullanarak, işlem bitene kadar bu ürünün başkası tarafından seçilmesini/değiştirilmesini engelliyoruz.
+    db_item = db.query(models.MarketplaceItem).filter(models.MarketplaceItem.id == item_id).with_for_update().first()
     if not db_item or db_item.status != "active":
         raise HTTPException(status_code=404, detail="İlan aktif değil veya bulunamadı.")
     

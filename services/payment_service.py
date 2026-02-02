@@ -2,17 +2,18 @@ import iyzipay
 import os
 from dotenv import load_dotenv
 from uuid import uuid4
+import hmac
+import hashlib
 
 load_dotenv()
 
 class PaymentService:
     @staticmethod
     def _get_options():
-        options = {
-            'api_key': os.getenv("IYZICO_API_KEY"),
-            'secret_key': os.getenv("IYZICO_SECRET_KEY"),
-            'base_url': os.getenv("IYZICO_BASE_URL")
-        }
+        options = iyzipay.Options()
+        options.api_key = os.getenv("IYZICO_API_KEY")
+        options.secret_key = os.getenv("IYZICO_SECRET_KEY")
+        options.base_url = os.getenv("IYZICO_BASE_URL")
         return options
 
     @staticmethod
@@ -22,6 +23,12 @@ class PaymentService:
         """
         if conversation_id is None:
             conversation_id = str(uuid4())
+
+        # GÜVENLİK: Callback URL için HMAC İmzası Oluşturma
+        # Bu imza, callback geldiğinde isteğin bütünlüğünü doğrulamak için kullanılacak.
+        api_secret = os.getenv("IYZICO_SECRET_KEY", "").encode()
+        signature = hmac.new(api_secret, conversation_id.encode(), hashlib.sha256).hexdigest()
+        callback_url = f"{os.getenv('APP_URL', 'http://localhost:8000')}/payments/callback?signature={signature}"
 
         # Adres Bilgileri (Mock - Gerçekte kullanıcıdan alınmalı)
         address = {
@@ -40,7 +47,7 @@ class PaymentService:
             'currency': 'TRY',
             'basketId': 'B' + str(uuid4())[:8],
             'paymentGroup': 'PRODUCT',
-            'callbackUrl': os.getenv("APP_URL", "http://localhost:8000") + "/payments/callback", # Dinamik Callback URL
+            'callbackUrl': callback_url, # İmzalı Callback URL
             'paymentCard': {
                 'cardHolderName': card_info['card_holder_name'],
                 'cardNumber': card_info['card_number'],

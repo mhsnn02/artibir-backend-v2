@@ -3,7 +3,7 @@ import os
 # Parent directory'i path'e ekliyoruz ki importlar çalışsın
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 import database, models, schemas, security
 from typing import List
@@ -32,11 +32,39 @@ def change_password(
 
 @router.get("/devices", response_model=List[schemas.LoginDeviceOut])
 def get_login_devices(
+    request: Request,
     db: Session = Depends(database.get_db),
     current_user: models.User = Depends(security.get_current_user)
 ):
     """Kullanıcının hesabına giriş yapmış olan cihazları listeler."""
-    return db.query(models.LoginDevice).filter(models.LoginDevice.user_id == current_user.id).all()
+    devices = db.query(models.LoginDevice).filter(models.LoginDevice.user_id == current_user.id).all()
+    
+    # Eğer hiç cihaz kaydı yoksa (İlk kurulum veya eski kullanıcı), şu anki oturumu kaydet
+    if not devices:
+        user_agent = request.headers.get("user-agent", "Unknown Device")
+        # Basit bir parser veya direkt string kullanımı
+        device_name = "Web Tarayıcısı"
+        if "Windows" in user_agent:
+            device_name = "Windows PC / Chrome"
+        elif "Macintosh" in user_agent:
+            device_name = "Macbook / Safari"
+        elif "Linux" in user_agent:
+            device_name = "Linux PC"
+        else:
+            device_name = "Web Tarayıcısı"
+            
+        new_device = models.LoginDevice(
+            user_id=current_user.id,
+            device_name=device_name,
+            ip_address=request.client.host,
+            is_active=True
+        )
+        db.add(new_device)
+        db.commit()
+        db.refresh(new_device)
+        return [new_device]
+        
+    return devices
 
 @router.delete("/devices/{device_id}")
 def logout_device(

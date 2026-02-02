@@ -89,9 +89,86 @@ def create_event(
     current_user: models.User = Depends(security.get_current_user), 
     db: Session = Depends(get_db)
 ):
-    """
-    Yeni Etkinlik Oluştur
-    """
+    # GÜVENLİK BOTU: Girdi Süzgeci
+    from utils.security_bot import validate_input_raise
+    validate_input_raise(event.title, "Etkinlik Başlığı")
+    validate_input_raise(event.description, "Etkinlik Açıklaması")
+
+    # KİMLİK & ÖĞRENCİ BELGESİ KONTROLÜ
+    if not current_user.is_verified:
+         raise HTTPException(
+            status_code=403, 
+            detail="Etkinlik oluşturmak için TC Kimlik doğrulamanızı tamamlamanız gerekir."
+        )
+    
+    if not current_user.is_student_verified:
+         raise HTTPException(
+            status_code=403, 
+            detail="Etkinlik oluşturmak için Öğrenci Belgesi doğrulamanızı tamamlamanız gerekir."
+        )
+
     return crud.create_event(db=db, event=event, host_id=current_user.id)
+
+
+# --- 2. ETKİNLİK SİL / İPTAL ET (DELETE /events/{event_id}) ---
+@router.delete("/events/{event_id}", response_model=dict)
+def delete_event(
+    event_id: UUID,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(security.get_current_user)
+):
+    """Etkinliği siler veya iptal eder. Ücretli ise iadeleri tetikler."""
+    event = db.query(models.Event).filter(models.Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Etkinlik bulunamadı.")
+    
+    if event.host_id != current_user.id:
+        raise HTTPException(status_code=403, detail="Bu etkinliği silme yetkiniz yok.")
+    
+    # İade İşlemleri (Escrow Refund)
+    if event.deposit_amount > 0:
+        participants = db.query(models.EventParticipant).filter(
+            models.EventParticipant.event_id == event_id,
+            models.EventParticipant.payment_status == "paid" # Sadece ödeme yapmış olanlar
+        ).all()
+        
+        refund_count = 0
+        for p in participants:
+            # Havuzdan kullanıcıya iade
+            # (Basit mantık: Havuz hesabında para duruyor varsayıyoruz, aslında Transaction loglarıyla tutuluyor)
+            # İade işlemi: Kullanıcı bakiyesini artır
+            p.user.wallet_balance += event.deposit_amount
+            p.payment_status = "refunded"
+            
+            # İade Logu
+            refund_tx = models.Transaction(
+                user_id=p.user.id,
+                amount=event.deposit_amount,
+                status=models.PaymentStatus.REFUNDED,
+                transaction_type="refund",
+                description=f"'{event.title}' etkinliği iptal edildiği için iade yapıldı."
+            )
+            db.add(refund_tx)
+            
+            # Bildirim gönder
+            notif = models.Notification(
+                user_id=p.user.id,
+                title="Etkinlik İptal Edildi 😔",
+                message=f"'{event.title}' etkinliği iptal edildi. {event.deposit_amount}₺ ücretiniz iade edildi.",
+                type="system"
+            )
+            db.add(notif)
+            refund_count += 1
+
+    # Etkinliği Sil
+    # db.delete(event) # Cascade delete varsa ilişkili her şey silinir.
+    # Ancak "İptal Edildi" statüsüne çekmek daha iyi olabilir.
+    # Kullanıcı "SİL" dediği için veritabanından tamamen kaldırmak yerine flag koyalım ki iade kayıtları kalsın?
+    # Ama CRUD olarak DELETE geldiği için silebiliriz (Cascade ayarlıysa).
+    # Güvenli olması için statüyü IPTAL yapalım, görünürlüğü kapatalım.
+    event.status = models.EventStatus.IPTAL
+    db.commit()
+    
+    return {"message": "Etkinlik başarıyla iptal edildi ve gerekli iadeler yapıldı."}
 
 

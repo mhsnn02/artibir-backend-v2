@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi.concurrency import run_in_threadpool
 from sqlalchemy.orm import Session
 from typing import List, Dict
 import json
@@ -13,40 +14,6 @@ from services import moderation, encryption
 
 router = APIRouter(tags=["Chat"])
 get_db = database.get_db
-
-# --- 3. MESAJ GÖNDER (POST /chat/send) ---
-# WebSocket yerine HTTP üzerinden mesaj atma (Güvenlik Botu Dahil)
-@router.post("/chat/send", response_model=schemas.MessageOut)
-async def send_message(
-    message: schemas.MessageCreate,
-    current_user: models.User = Depends(security.get_current_user),
-    db: Session = Depends(get_db)
-):
-    """
-    HTTP üzerinden güvenli mesaj gönderme.
-    "Yapay Zeka Koruması" (Security Guard) buradan sorumlu.
-    """
-    # 1. GÜVENLİK BOTU KONTROLÜ
-    is_safe, reason = moderation.check_message(message.content, current_user.trust_score)
-
-    if not is_safe:
-        # Mesaj güvenli değilse 400 Hatası fırlat
-        raise HTTPException(status_code=400, detail=f"Mesaj engellendi: {reason}")
-    
-    # 2. Veritabanına Kaydet
-    saved_message = crud.create_message(db, message, sender_id=current_user.id)
-    
-    # 3. Eğer alıcı online ise WebSocket ile ilet (Opsiyonel ama şık olur)
-    # Mesaj objesini hazırla
-    response_data = {
-        "id": saved_message.id,
-        "sender_id": str(current_user.id),
-        "content": message.content,
-        "timestamp": str(saved_message.timestamp)
-    }
-    await manager.send_personal_message(json.dumps(response_data), message.receiver_id)
-    
-    return saved_message
 
 # Bağlantı Yöneticisi
 class ConnectionManager:
@@ -67,6 +34,42 @@ class ConnectionManager:
             await self.active_connections[user_id].send_text(message)
 
 manager = ConnectionManager()
+
+# --- 3. MESAJ GÖNDER (POST /chat/send) ---
+# WebSocket yerine HTTP üzerinden mesaj atma (Güvenlik Botu Dahil)
+@router.post("/chat/send", response_model=schemas.MessageOut)
+async def send_message(
+    message: schemas.MessageCreate,
+    current_user: models.User = Depends(security.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    HTTP üzerinden güvenli mesaj gönderme.
+    "Yapay Zeka Koruması" (Security Guard) buradan sorumlu.
+    """
+    # 1. GÜVENLİK BOTU KONTROLÜ
+    # NLP işlemi CPU bound olduğu için threadpool'da çalıştırıyoruz
+    is_safe, reason = await run_in_threadpool(moderation.check_message, message.content, current_user.trust_score)
+
+    if not is_safe:
+        # Mesaj güvenli değilse 400 Hatası fırlat
+        raise HTTPException(status_code=400, detail=f"Mesaj engellendi: {reason}")
+    
+    # 2. Veritabanına Kaydet
+    saved_message = crud.create_message(db, message, sender_id=current_user.id)
+    
+    # 3. Eğer alıcı online ise WebSocket ile ilet (Opsiyonel ama şık olur)
+    # Mesaj objesini hazırla
+    response_data = {
+        "id": saved_message.id,
+        "sender_id": str(current_user.id),
+        "content": message.content,
+        "timestamp": str(saved_message.timestamp)
+    }
+    await manager.send_personal_message(json.dumps(response_data), message.receiver_id)
+    
+    return saved_message
+
 
 # --- 1. WebSocket ile Gerçek Zamanlı Mesajlaşma ---
 @router.websocket("/ws/chat/{token}")
@@ -123,7 +126,8 @@ async def websocket_endpoint(websocket: WebSocket, token: str, db: Session = Dep
                 
                 user_trust_score = user.trust_score
                 
-                is_safe, reason = moderation.check_message(raw_content, user_trust_score)
+                # WebSocket içinde de bloklamaması için threadpool kullanımı
+                is_safe, reason = await run_in_threadpool(moderation.check_message, raw_content, user_trust_score)
                 
                 if not is_safe:
                     # Hata mesajını gönder ve işlemi durdur

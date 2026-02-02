@@ -1,6 +1,6 @@
 import requests
 
-def verify_tckn(tc_no: int, ad: str, soyad: str, dogum_yili: int) -> bool:
+def verify_tckn(tc_no: int, ad: str, soyad: str, dogum_yili: int) -> tuple[bool, str]:
     """
     NVİ (Nüfus ve Vatandaşlık İşleri) Public API üzerinden TCKN doğrulaması yapar.
     
@@ -15,10 +15,23 @@ def verify_tckn(tc_no: int, ad: str, soyad: str, dogum_yili: int) -> bool:
     """
     url = "https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx"
     
-    # Türkçe karakter sorunu ve büyük harf dönüşümü için basit bir düzeltme
-    # Not: Daha kapsamlı bir Türkçe uppercase fonksiyonu gerekebilir ama şimdilik basic upper.
-    ad_upper = ad.upper().replace('i', 'İ').replace('ı', 'I')
-    soyad_upper = soyad.upper().replace('i', 'İ').replace('ı', 'I')
+    # Türkçe karakter sorunu ve büyük harf dönüşümü
+    # Önce küçük i'leri büyük İ yap, sonra diğerlerini çevir.
+    tr_map = {
+        "i": "İ", "ı": "I", "ş": "Ş", "ğ": "Ğ", 
+        "ü": "Ü", "ö": "Ö", "ç": "Ç"
+    }
+    
+    def to_upper_tr(text):
+        text = text.replace("i", "İ") # Öncelikli kritik dönüşüm
+        text = text.upper()
+        # Diğerleri zaten upper ile düzgün gelir ama garanti olsun diye map check yapılabilir
+        # Ancak Python upper() unicode destekli olduğu için ş/Ş gibi karakterleri genelde doğru yapar.
+        # Sadece i/I karışıklığı boldur.
+        return text
+
+    ad_upper = to_upper_tr(ad)
+    soyad_upper = to_upper_tr(soyad)
     
     body = f"""
     <?xml version="1.0" encoding="utf-8"?>
@@ -38,7 +51,11 @@ def verify_tckn(tc_no: int, ad: str, soyad: str, dogum_yili: int) -> bool:
     try:
         response = requests.post(url, data=body.encode('utf-8'), headers=headers)
         # Yanıt kontrolü
-        return "<TCKimlikNoDogrulaResult>true</TCKimlikNoDogrulaResult>" in response.text
+        result = "<TCKimlikNoDogrulaResult>true</TCKimlikNoDogrulaResult>" in response.text
+        if result:
+            return True, "TC Kimlik doğrulama başarılı."
+        else:
+            return False, "Bilgiler Nüfus Müdürlüğü kayıtlarıyla eşleşmedi."
     except Exception as e:
         print(f"NVI Error: {e}")
-        return False
+        return False, "NVİ Servisine erişilemedi."

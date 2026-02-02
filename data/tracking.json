@@ -1,0 +1,1864 @@
+[
+    {
+        "timestamp": "2026-01-30T19:34:23.739356",
+        "event_type": "TEST_EVENT",
+        "user_id": "anonymous",
+        "details": {
+            "status": "success"
+        }
+    },
+    {
+        "timestamp": "2026-01-30T19:59:46.086900",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/favicon.ico",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-30T19:59:46.091985",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/favicon.ico",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T14:16:53.641363",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/favicon.ico",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:45:27.369851",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:45:27.380279",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:45:37.659872",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:45:37.666129",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:45:50.836340",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:45:50.866859",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:46:07.985723",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T15:46:08.023032",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T16:35:15.675473",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T16:40:22.362718",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T16:41:42.826938",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T16:41:44.391089",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:09:22.423943",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:09:46.357180",
+        "event_type": "USER_REGISTER",
+        "user_id": "anonymous",
+        "details": {
+            "user_id": "2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "email": "22202208006@ogr.inonu.edu.tr",
+            "full_name": "Mahsun Tanrıverdi"
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:09:46.394799",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:09:48.300910",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:39:03.157567",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "PUT",
+            "path": "/settings/profile",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:39:03.182872",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "PUT",
+            "path": "/settings/preferences",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:43:05.064545",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/notifications/1/read",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:54:03.989528",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/upload-profile",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:54:04.006083",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:54:52.523469",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/upload-profile",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T17:54:52.540138",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:00:53.298789",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/upload-profile",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:01:14.819496",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/upload-profile",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:08:56.378725",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:08:56.390601",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:13:00.364916",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:23:32.236498",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 422,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:25:40.582706",
+        "event_type": "CREATE_EVENT",
+        "user_id": "2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+        "details": {
+            "event_id": "371641d9-e56f-4f41-84eb-919ecf6b8e30",
+            "title": "kahve buluşması",
+            "city": "adıyaman"
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:25:40.586832",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:28:50.881724",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/b9579057-9633-420c-8971-560c20eadcf2",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:29:42.425014",
+        "event_type": "CREATE_EVENT",
+        "user_id": "2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+        "details": {
+            "event_id": "b28fcbeb-74d8-4866-a051-b2983d038308",
+            "title": "kahve buluşması",
+            "city": "adıyaman"
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:29:42.430360",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:34:12.858708",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/participants/ticket/8125861a-7ae6-440b-8b7d-cdfbf64ac2f1",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:34:12.875381",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/participants/ticket/8125861a-7ae6-440b-8b7d-cdfbf64ac2f1",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:42:25.317461",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/8125861a-7ae6-440b-8b7d-cdfbf64ac2f1",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:42:29.649238",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/8125861a-7ae6-440b-8b7d-cdfbf64ac2f1",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:42:32.148025",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/f86c07d2-c929-4d88-b9dd-4fb4edfa1395",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:43:32.517492",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/b9579057-9633-420c-8971-560c20eadcf2",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:45:02.265902",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/e7e70f3a-b722-45a4-b078-31e2b6e1a014",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:45:05.126343",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/02bd2adf-0634-4910-9caf-add2757d70b1",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:45:07.830515",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/a00becd4-7709-4ced-890d-2c47f575db81",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:45:10.832205",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/371641d9-e56f-4f41-84eb-919ecf6b8e30",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:45:13.656404",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/b28fcbeb-74d8-4866-a051-b2983d038308",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:46:23.291273",
+        "event_type": "CREATE_EVENT",
+        "user_id": "2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+        "details": {
+            "event_id": "010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "title": "HALI SAHA  ",
+            "city": "adıyaman"
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:46:23.295872",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T18:46:25.608219",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T20:18:02.415492",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T20:18:10.662591",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/activity/like/010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T20:18:18.744960",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/activity/like/010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T20:18:37.749175",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/gamification/check-achievements",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:33:36.760982",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:39:34.500410",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:40:31.711804",
+        "event_type": "CREATE_EVENT",
+        "user_id": "2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+        "details": {
+            "event_id": "95e252ea-da20-41ef-8eec-3f0f66a4982d",
+            "title": "Halı Saha",
+            "city": "adıyaman"
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:40:31.716615",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:40:34.613379",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/activity/like/95e252ea-da20-41ef-8eec-3f0f66a4982d",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:40:50.374129",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/95e252ea-da20-41ef-8eec-3f0f66a4982d",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T22:41:45.132990",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/interact/voice-room/95e252ea-da20-41ef-8eec-3f0f66a4982d",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T23:18:07.233504",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/gamification/check-achievements",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T23:39:32.975699",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/marketplace/items",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-01-31T23:44:27.416068",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/95e252ea-da20-41ef-8eec-3f0f66a4982d",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:27:10.326103",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/verify/identity",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:28:55.323339",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/verify/identity",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:41:25.523728",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:45:11.473647",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:46:43.945377",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:48:15.153331",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:49:58.519197",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/favicon.ico",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T00:55:07.776328",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/2c8d92df-2f07-4a1d-b92b-33e567f15eb8",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T01:08:01.787455",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/clubs/",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T01:08:05.974431",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/clubs/1/join",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T01:13:48.930516",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T01:24:44.748951",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T01:25:08.492605",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T01:25:43.225452",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/payments/initialize-3ds",
+            "status_code": 500,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T12:23:01.995284",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/010b186c-6d88-4acb-bd2b-71e378d2f82d",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T12:24:55.976891",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/support/tickets",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T12:44:42.597412",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/b9579057-9633-420c-8971-560c20eadcf2",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T14:17:13.220592",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/favicon.ico",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:23:39.571123",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/favicon.ico",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:23:43.823412",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 400,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:36:16.130753",
+        "event_type": "USER_REGISTER",
+        "user_id": "anonymous",
+        "details": {
+            "user_id": "bf7c184d-5da9-403d-a3c2-a7a6530655c0",
+            "email": "22202208006@ogr.inonu.edu.tr",
+            "full_name": "Mahsun Tanrıverdi "
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:36:16.156228",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:36:38.163909",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/token",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:36:56.145595",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/token",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:38:32.519519",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/token",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:38:49.959368",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:38:50.584882",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/users/me",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:38:55.962517",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/users/me",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:38:58.264764",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/users/me",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:52:08.426606",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:55:01.306724",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:57:56.724452",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T21:59:03.368351",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:02:16.167721",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:02:16.187451",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:02:24.216458",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:02:24.236177",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:02:35.364792",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:02:35.387218",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:04:13.809254",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:07:46.280043",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/upload-profile",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:11:01.377270",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:11:26.599573",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:13:58.066353",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:56:32.526527",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-01T22:57:52.360934",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T17:36:24.002187",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T17:36:46.221212",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T17:45:17.625869",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:02:30.777680",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:05:25.535204",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:09:30.868644",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:10:01.941573",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:11:54.434215",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:25:55.526353",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:25:57.440875",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:26:18.617464",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/gamification/my-stats",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:27:36.884947",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:29:09.741278",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:30:58.862175",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:35:24.962516",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:36:17.816876",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:39:21.256914",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:40:50.376851",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:41:11.598060",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:43:05.134992",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:43:05.179547",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:43:16.470240",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:43:16.490486",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/admin-api/system-stats",
+            "status_code": 403,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:44:51.928465",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:45:38.719667",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/admin-api/verify-user/bf7c184d-5da9-403d-a3c2-a7a6530655c0",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:51:56.969976",
+        "event_type": "CREATE_EVENT",
+        "user_id": "bf7c184d-5da9-403d-a3c2-a7a6530655c0",
+        "details": {
+            "event_id": "f85ce521-dda7-451c-bcbe-869ff1d33db6",
+            "title": "kahve buluşması ",
+            "city": "adıyaman"
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:51:56.979386",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:52:54.394076",
+        "event_type": "CREATE_EVENT",
+        "user_id": "bf7c184d-5da9-403d-a3c2-a7a6530655c0",
+        "details": {
+            "event_id": "e356528a-ad73-4351-b048-aeb1bfa53bdb",
+            "title": "kahve buluşması ",
+            "city": "adıyaman"
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:52:54.403989",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/events",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:53:21.681530",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "DELETE",
+            "path": "/events/f85ce521-dda7-451c-bcbe-869ff1d33db6",
+            "status_code": 200,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T18:53:53.613919",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/participants/join/e356528a-ad73-4351-b048-aeb1bfa53bdb",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:29:24.750200",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/notifications/",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:30:24.752433",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/notifications/",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:31:24.747677",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/notifications/",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:32:24.970448",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/notifications/",
+            "status_code": 404,
+            "client_ip": "127.0.0.1",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:37:26.554937",
+        "event_type": "USER_REGISTER",
+        "user_id": "anonymous",
+        "details": {
+            "user_id": "91196733-f80d-4755-a2d2-a82a64e821e4",
+            "email": "22202208006@ogr.inonu.edu.tr",
+            "full_name": "Mahsun Tanrıverdi "
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:37:26.569534",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/users/",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:37:38.928807",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "POST",
+            "path": "/login",
+            "status_code": 200,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:37:56.913271",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/social/friends",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:38:18.730535",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/gamification/my-badges",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:38:18.789029",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/gamification/my-stats",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:38:27.619317",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/gamification/my-badges",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:38:27.851139",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/gamification/my-stats",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:38:59.010598",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/support/faqs",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    },
+    {
+        "timestamp": "2026-02-02T19:39:08.665290",
+        "event_type": "API_REQUEST",
+        "user_id": "anonymous",
+        "details": {
+            "method": "GET",
+            "path": "/notifications",
+            "status_code": 404,
+            "client_ip": "192.168.1.4",
+            "payload": null
+        }
+    }
+]

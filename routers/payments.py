@@ -5,6 +5,8 @@ from typing import List
 import sys
 import os
 import json
+import hmac
+import hashlib
 
 # Parent directory'i path'e ekliyoruz ki importlar çalışsın
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -73,6 +75,18 @@ async def payment_callback(
     conversation_id = form_data.get("conversationId")
     status = form_data.get("status")
     
+    # GÜVENLİK: HMAC İmza Kontrolü
+    # URL'den gelen imza ile bizim hesapladığımız imza eşleşmeli.
+    incoming_signature = request.query_params.get("signature")
+    if not incoming_signature or not conversation_id:
+        return HTMLResponse("<html><body><h1>Güvenlik Hatası: Geçersiz İstek.</h1></body></html>")
+
+    api_secret = os.getenv("IYZICO_SECRET_KEY", "").encode()
+    expected_signature = hmac.new(api_secret, conversation_id.encode(), hashlib.sha256).hexdigest()
+
+    if not hmac.compare_digest(incoming_signature, expected_signature):
+        return HTMLResponse("<html><body><h1>Güvenlik Hatası: İmza Doğrulanamadı.</h1></body></html>")
+
     # İşlemi bul
     transaction = db.query(models.Transaction).filter(models.Transaction.conversation_id == conversation_id).first()
     if not transaction:

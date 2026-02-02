@@ -32,9 +32,18 @@ def ogrenci_belgesi_barkod_kontrol(barkod_kodu: str, kullanici_adi_soyadi: str) 
             soup = BeautifulSoup(response.content, 'html.parser')
             sayfa_metni = soup.get_text().upper()
             
-            # Türkçe karakter dönüşümleri için basit upper() bazen sorunlu olabilir (.replace('i','İ') vb.)
-            # Ancak basit kontrol için:
-            kullanici_adi_upper = kullanici_adi_soyadi.upper().replace('i', 'İ')
+            # Türkçe karakter dönüşümleri
+            tr_map = {
+                "i": "İ", "ı": "I", "ş": "Ş", "ğ": "Ğ", 
+                "ü": "Ü", "ö": "Ö", "ç": "Ç"
+            }
+            
+            def to_upper_tr(text):
+                text = text.replace("i", "İ") 
+                text = text.upper()
+                return text
+
+            kullanici_adi_upper = to_upper_tr(kullanici_adi_soyadi)
             
             # "ÖĞRENCİ BELGESİ" veya benzeri anahtar kelimeler belgenin türünü doğrular
             # Ancak en kritiği isim eşleşmesidir.
